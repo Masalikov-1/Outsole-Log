@@ -197,8 +197,7 @@ class _SampleFormScreenState extends State<SampleFormScreen> {
 
   Navigator.pop(context, sample);
 },
-            },
-            child: const Text('SIMPAN SAMPEL'),
+  child: const Text('SIMPAN SAMPEL'),
           ),
         ],
       ),
