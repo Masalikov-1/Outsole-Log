@@ -24,20 +24,20 @@ jobs:
 
       - name: Prepare Android project
         run: |
-            cp -r lib /tmp/outsole_lib
-            cp -r test /tmp/outsole_test
-            cp pubspec.yaml /tmp/outsole_pubspec.yaml
+          cp -r lib /tmp/outsole_lib
+          cp -r test /tmp/outsole_test
+          cp pubspec.yaml /tmp/outsole_pubspec.yaml
 
-    flutter create \
-      --platforms=android \
-      --org=com.masalikov \
-      --project-name=outsole_log \
-      .
+          flutter create \
+            --platforms=android \
+            --org=com.masalikov \
+            --project-name=outsole_log \
+            .
 
-    rm -rf lib test
-    cp -r /tmp/outsole_lib lib
-    cp -r /tmp/outsole_test test
-    cp /tmp/outsole_pubspec.yaml pubspec.yaml
+          rm -rf lib test
+          cp -r /tmp/outsole_lib lib
+          cp -r /tmp/outsole_test test
+          cp /tmp/outsole_pubspec.yaml pubspec.yaml
 
       - name: Analyze
         run: flutter analyze
