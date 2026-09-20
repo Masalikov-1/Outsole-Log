@@ -1,0 +1,49 @@
+name: Bootstrap Flutter
+
+on:
+  workflow_dispatch:
+
+jobs:
+  bootstrap:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+
+      - name: Create Outsole Log
+        run: |
+          flutter create \
+            --platforms=android \
+            --org=com.masalikov \
+            --project-name=outsole_log \
+            outsole_log
+
+      - name: Analyze
+        working-directory: outsole_log
+        run: flutter analyze
+
+      - name: Test
+        working-directory: outsole_log
+        run: flutter test
+
+      - name: Build APK
+        working-directory: outsole_log
+        run: flutter build apk --debug
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: outsole-log-bootstrap-apk
+          path: outsole_log/build/app/outputs/flutter-apk/app-debug.apk
