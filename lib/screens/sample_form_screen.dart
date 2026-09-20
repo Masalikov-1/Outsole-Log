@@ -1,3 +1,5 @@
+import '../data/sample_store.dart';
+import '../models/sample.dart';
 import 'package:flutter/material.dart';
 
 import '../models/sample_status.dart';
@@ -160,7 +162,41 @@ class _SampleFormScreenState extends State<SampleFormScreen> {
 
           FilledButton(
             onPressed: () {
-              // Penyimpanan akan dibuat pada tahap berikutnya.
+  if (styleController.text.trim().isEmpty ||
+      batchController.text.trim().isEmpty) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text('Style dan Nomor Batch wajib diisi'),
+      ),
+    );
+    return;
+  }
+
+  final sample = Sample(
+    id: DateTime.now().millisecondsSinceEpoch.toString(),
+    style: styleController.text.trim(),
+    batchNumber: batchController.text.trim(),
+    rollMachine: rollMachine,
+    colorCategory: ColorCategory.values.firstWhere(
+      (category) =>
+          category.name.toLowerCase() ==
+          colorCategory.toLowerCase(),
+    ),
+    isRegrind: isRegrind,
+    pressLine: pressLine,
+    rollExitTime: DateTime.now(),
+  );
+
+  SampleStore.samples.add(sample);
+
+  ScaffoldMessenger.of(context).showSnackBar(
+    const SnackBar(
+      content: Text('Sampel berhasil dicatat'),
+    ),
+  );
+
+  Navigator.pop(context, sample);
+},
             },
             child: const Text('SIMPAN SAMPEL'),
           ),
