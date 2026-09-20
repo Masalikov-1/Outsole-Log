@@ -23,10 +23,10 @@ jobs:
           channel: stable
 
       - name: Prepare Android project
-  run: |
-    cp -r lib /tmp/outsole_lib
-    cp -r test /tmp/outsole_test
-    cp pubspec.yaml /tmp/outsole_pubspec.yaml
+        run: |
+            cp -r lib /tmp/outsole_lib
+            cp -r test /tmp/outsole_test
+            cp pubspec.yaml /tmp/outsole_pubspec.yaml
 
     flutter create \
       --platforms=android \
