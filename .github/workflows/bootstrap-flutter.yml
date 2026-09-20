@@ -23,27 +23,24 @@ jobs:
           channel: stable
 
       - name: Prepare Android project
-  run: |
-    flutter create \
-      --platforms=android \
-      --org=com.masalikov \
-      --project-name=outsole_log \
-      .
+        run: |
+          flutter create \
+            --platforms=android \
+            --org=com.masalikov \
+            --project-name=outsole_log \
+            .
 
       - name: Analyze
-        working-directory: outsole_log
         run: flutter analyze
 
       - name: Test
-        working-directory: outsole_log
         run: flutter test
 
       - name: Build APK
-        working-directory: outsole_log
         run: flutter build apk --debug
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
-          name: outsole-log-bootstrap-apk
+          name: outsole-log-debug-apk
           path: build/app/outputs/flutter-apk/app-debug.apk
